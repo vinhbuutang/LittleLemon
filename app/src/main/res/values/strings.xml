@@ -7,4 +7,6 @@
     <string name="onboarding_display">Let\'s get to know you</string>
     <string name="register">Register</string>
     <string name="logo_desc">little lemon logo</string>
+    <string name="register_success">"Registration successful!"</string>
+    <string name="register_fail">"Registration unsuccessful. Please enter all data."</string>
 </resources>

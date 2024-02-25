@@ -1,5 +1,9 @@
 package com.example.littlelemon.components
 
+import android.content.Context
+import android.util.Patterns.EMAIL_ADDRESS
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,11 +30,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.edit
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.littlelemon.R
+import com.example.littlelemon.navigation.Home
 import com.example.littlelemon.ui.theme.KarlaTypography
 import com.example.littlelemon.ui.theme.highlight
 import com.example.littlelemon.ui.theme.highlightVariant
@@ -39,7 +48,9 @@ import com.example.littlelemon.ui.theme.primaryVariant
 
 
 @Composable
-fun Onboarding() {
+fun Onboarding(navController: NavHostController) {
+    val context = LocalContext.current
+
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             verticalArrangement = Arrangement.Top,
@@ -70,16 +81,64 @@ fun Onboarding() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp),
-                onClick = { /*TODO*/ }) {
-                    Text(
-                        text = stringResource(id = R.string.register),
-                        style = KarlaTypography.formButton,
-                        modifier = Modifier.padding(5.dp)
+                onClick = {
+                    formRegister(
+                        firstName = firstName,
+                        lastName = lastName,
+                        email = email,
+                        context = context,
+                        navController = navController
                     )
+                }
+            ) {
+                Text(
+                    text = stringResource(id = R.string.register),
+                    style = KarlaTypography.formButton,
+                    modifier = Modifier.padding(5.dp)
+                )
             }
         }
     }
 }
+
+fun validateFormFields(firstName: String, lastName: String, email: String): Boolean {
+    return !(firstName.isBlank() || lastName.isBlank() || !validateEmail(email))
+}
+
+fun validateEmail(email: String): Boolean {
+    return EMAIL_ADDRESS.matcher(email).matches()
+}
+
+fun formRegister(
+    firstName: String,
+    lastName: String,
+    email: String,
+    context: Context,
+    navController: NavHostController
+) {
+    val registerSuccess = validateFormFields(
+        firstName = firstName,
+        lastName = lastName,
+        email = email,
+    )
+    val sharedPreferences = context.getSharedPreferences("LittleLemon", Context.MODE_PRIVATE)
+    if (registerSuccess) {
+        Toast.makeText(context, R.string.register_success, LENGTH_SHORT).show()
+        sharedPreferences.edit(commit = true) {
+            putString("firstName", firstName)
+            putString("lastName", lastName)
+            putString("email", email)
+        }
+        navController.navigate(Home.route)
+    } else {
+        Toast.makeText(
+            context,
+            R.string.register_fail,
+            LENGTH_SHORT
+        ).show()
+    }
+}
+
 
 @Composable
 fun OnboardingHeader() {
@@ -191,5 +250,6 @@ fun LittleLemonFormField(
 @Preview(showBackground = true)
 @Composable
 fun OnboardingPreview() {
-    Onboarding()
+    val navController = rememberNavController()
+    Onboarding(navController = navController)
 }
