@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LittleLemon</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="form_title">Personal information</string>
+    <string name="onboarding_display">Let\'s get to know you</string>
+    <string name="register">Register</string>
+    <string name="logo_desc">little lemon logo</string>
 </resources>
