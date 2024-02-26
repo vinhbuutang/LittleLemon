@@ -1,13 +1,15 @@
 package com.example.littlelemon.database
 
-import androidx.lifecycle.LiveData
+import android.content.Context
 import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.PrimaryKey
 import androidx.room.Query
+import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.flow.Flow
 
 @Entity
 data class MenuItemRoom(
@@ -22,16 +24,35 @@ data class MenuItemRoom(
 @Dao
 interface MenuItemDao {
     @Query("SELECT * FROM MenuItemRoom")
-    fun getAll(): LiveData<List<MenuItemRoom>>
+    fun getAllMenuItems(): Flow<List<MenuItemRoom>>
 
     @Insert
-    fun insertAll(vararg menuItems: MenuItemRoom)
+    suspend fun insertAll(vararg menuItems: MenuItemRoom)
 
     @Query("SELECT (SELECT COUNT(*) FROM MenuItemRoom) == 0")
     fun isEmpty(): Boolean
 }
 
-@Database(entities = [MenuItemRoom::class], version = 2)
+@Database(entities = [MenuItemRoom::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun menuItemDao(): MenuItemDao
+
+    companion object {
+        // Singleton prevents multiple instances of database opening at the
+        // same time.
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase {
+            // if the INSTANCE is not null, then return it,
+            // if it is, then create the database
+            return INSTANCE ?: synchronized(this) {
+                Room.databaseBuilder(
+                    context,
+                    AppDatabase::class.java,
+                    "database"
+                ).build().also { INSTANCE = it }
+            }
+        }
+    }
 }

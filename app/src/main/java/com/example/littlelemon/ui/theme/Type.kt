@@ -75,6 +75,12 @@ object KarlaTypography {
         fontSize = 24.sp
     )
 
+    val title = TextStyle(
+        fontFamily = karlaFamily,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 20.sp
+    )
+
     val formButton = TextStyle(
         fontFamily = karlaFamily,
         fontWeight = FontWeight.ExtraBold,
@@ -91,6 +97,12 @@ object KarlaTypography {
         fontFamily = karlaFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 16.sp
+    )
+
+    val leadTextBold = TextStyle(
+        fontFamily = karlaFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
     )
 
 }

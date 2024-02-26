@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private val database by lazy {
-        Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database").build()
+        AppDatabase.getDatabase(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
         return response.menu
     }
 
-    private fun saveMenuToDatabase(menuItemsNetwork: List<MenuItemNetwork>) {
+    private suspend fun saveMenuToDatabase(menuItemsNetwork: List<MenuItemNetwork>) {
         val menuItemsRoom = menuItemsNetwork.map { it.toMenuItemRoom() }
         database.menuItemDao().insertAll(*menuItemsRoom.toTypedArray())
     }
