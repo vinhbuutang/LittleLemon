@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.littlelemon.R
@@ -46,6 +47,20 @@ val karlaTypography = Typography(
         fontSize = 18.sp
     ),
 )
+
+object MarkaziTypography {
+    val displayLarge = TextStyle(
+        fontFamily = markaziTextFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 64.sp,
+        lineHeightStyle = LineHeightStyle(LineHeightStyle.Alignment.Center, LineHeightStyle.Trim.Both)
+    )
+    val displayMedium = TextStyle(
+        fontFamily = markaziTextFamily,
+        fontWeight = FontWeight.Light,
+        fontSize = 44.sp
+    )
+}
 
 object KarlaTypography {
     val displayMedium = TextStyle(

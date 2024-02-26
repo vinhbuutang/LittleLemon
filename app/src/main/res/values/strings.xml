@@ -10,4 +10,9 @@
     <string name="register_success">"Registration successful!"</string>
     <string name="register_fail">"Registration unsuccessful. Please enter all data."</string>
     <string name="logout">Log Out</string>
+    <string name="little_lemon">Little Lemon</string>
+    <string name="location">Chicago</string>
+    <string name="hero_img_desc">hero image</string>
+    <string name="search_icon_desc">search icon</string>
+    <string name="search_phrase">Enter search phrase</string>
 </resources>

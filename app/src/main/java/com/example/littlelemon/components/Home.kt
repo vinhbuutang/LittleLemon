@@ -14,6 +14,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -25,6 +29,7 @@ import com.example.littlelemon.R
 
 @Composable
 fun Home(onNavigateToProfile: () -> Unit) {
+    var searchPhrase by remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -44,6 +49,9 @@ fun Home(onNavigateToProfile: () -> Unit) {
                 ) {
                     ProfileImage(onNavigateToProfile = onNavigateToProfile)
                 }
+            }
+            Intro(searchPhrase = searchPhrase) {
+                searchPhrase = it
             }
         }
     }
