@@ -19,22 +19,21 @@ fun AppNavigation(navController: NavHostController) {
     val lastName = sharedPreferences.getString("lastName", "")
     val email = sharedPreferences.getString("email", "")
 
-    val isLoggedIn = !(firstName!!.isBlank() || lastName!!.isBlank() || email!!.isBlank())
+    val isLoggedIn = firstName!!.isNotBlank() && lastName!!.isNotBlank() && email!!.isNotBlank()
 
     NavHost(
         navController = navController,
         startDestination = if (isLoggedIn) Home.route else Onboarding.route
     ) {
         composable(Home.route) {
-            Home()
+            Home(onNavigateToProfile = { navController.navigate(Profile.route) })
         }
         composable(Profile.route) {
-            Profile()
+            Profile(onNavigateToOnboarding = { navController.navigate(Onboarding.route) })
         }
         composable(Onboarding.route) {
-            Onboarding(navController = navController)
+            Onboarding(onNavigateToHome = { navController.navigate(Home.route) })
         }
-
     }
 
 }

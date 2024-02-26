@@ -36,10 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.edit
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.littlelemon.R
-import com.example.littlelemon.navigation.Home
 import com.example.littlelemon.ui.theme.KarlaTypography
 import com.example.littlelemon.ui.theme.highlight
 import com.example.littlelemon.ui.theme.highlightVariant
@@ -48,7 +45,7 @@ import com.example.littlelemon.ui.theme.primaryVariant
 
 
 @Composable
-fun Onboarding(navController: NavHostController) {
+fun Onboarding(onNavigateToHome: () -> Unit) {
     val context = LocalContext.current
 
     Surface(modifier = Modifier.fillMaxSize()) {
@@ -87,7 +84,7 @@ fun Onboarding(navController: NavHostController) {
                         lastName = lastName,
                         email = email,
                         context = context,
-                        navController = navController
+                        onNavigateToHome = onNavigateToHome
                     )
                 }
             ) {
@@ -114,7 +111,7 @@ fun formRegister(
     lastName: String,
     email: String,
     context: Context,
-    navController: NavHostController
+    onNavigateToHome: () -> Unit
 ) {
     val registerSuccess = validateFormFields(
         firstName = firstName,
@@ -129,7 +126,7 @@ fun formRegister(
             putString("lastName", lastName)
             putString("email", email)
         }
-        navController.navigate(Home.route)
+        onNavigateToHome()
     } else {
         Toast.makeText(
             context,
@@ -141,6 +138,19 @@ fun formRegister(
 
 
 @Composable
+fun LogoHeader() {
+    Image(
+        painter = painterResource(id = R.drawable.logo),
+        contentDescription = stringResource(id = R.string.logo_desc),
+        contentScale = ContentScale.Fit,
+        modifier = Modifier
+            .padding(20.dp)
+            .fillMaxWidth()
+            .height(50.dp)
+    )
+}
+
+@Composable
 fun OnboardingHeader() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -148,15 +158,7 @@ fun OnboardingHeader() {
         modifier = Modifier
             .fillMaxWidth()
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = stringResource(id = R.string.logo_desc),
-            contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .padding(20.dp)
-                .fillMaxWidth()
-                .height(50.dp)
-        )
+        LogoHeader()
         Card(
             colors = CardDefaults.cardColors(
                 containerColor = primary,
@@ -184,11 +186,12 @@ fun OnboardingHeader() {
 @Composable
 fun OnboardingForm(
     firstName: String,
-    onFirstNameChange: (String) -> Unit,
+    onFirstNameChange: (String) -> Unit = { },
     lastName: String,
-    onLastNameChange: (String) -> Unit,
+    onLastNameChange: (String) -> Unit = { },
     email: String,
-    onEmailChange: (String) -> Unit
+    onEmailChange: (String) -> Unit = { },
+    readOnly: Boolean = false,
 ) {
     Column(
         horizontalAlignment = Alignment.Start,
@@ -206,19 +209,22 @@ fun OnboardingForm(
         LittleLemonFormField(
             label = stringResource(id = R.string.first_name),
             formValue = firstName,
-            onFormValueChange = onFirstNameChange
+            onFormValueChange = onFirstNameChange,
+            readOnly = readOnly,
         )
 
         LittleLemonFormField(
             label = stringResource(id = R.string.last_name),
             formValue = lastName,
-            onFormValueChange = onLastNameChange
+            onFormValueChange = onLastNameChange,
+            readOnly = readOnly,
         )
 
         LittleLemonFormField(
             label = stringResource(id = R.string.email),
             formValue = email,
-            onFormValueChange = onEmailChange
+            onFormValueChange = onEmailChange,
+            readOnly = readOnly,
         )
     }
 }
@@ -228,10 +234,12 @@ fun OnboardingForm(
 fun LittleLemonFormField(
     label: String,
     formValue: String,
-    onFormValueChange: (String) -> Unit
+    onFormValueChange: (String) -> Unit,
+    readOnly: Boolean = false
 ) {
     OutlinedTextField(
         singleLine = true,
+        readOnly = readOnly,
         label = {
             Text(
                 text = label,
@@ -250,6 +258,5 @@ fun LittleLemonFormField(
 @Preview(showBackground = true)
 @Composable
 fun OnboardingPreview() {
-    val navController = rememberNavController()
-    Onboarding(navController = navController)
+    Onboarding(onNavigateToHome = { })
 }
