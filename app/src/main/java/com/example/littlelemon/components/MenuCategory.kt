@@ -56,7 +56,7 @@ fun MenuCategory(onCategorySelected: (String) -> Unit) {
                     Button(
                         onClick = {
                             currentSelectedCategory = if (currentSelectedCategory == it)
-                                "" else
+                                "all" else
                                 it
                             onCategorySelected(currentSelectedCategory)
                         },

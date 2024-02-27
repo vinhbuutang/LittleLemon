@@ -14,7 +14,8 @@ object AppViewModelProvider {
     val Factory = viewModelFactory {
         // Initializer for HomeViewModel
         initializer {
-            HomeViewModel(littleLemonApplication().container.menuItemsRepository)
+            val container = littleLemonApplication().container
+            HomeViewModel(container.menuItemsRepository, container.resourceProvider)
         }
     }
 }

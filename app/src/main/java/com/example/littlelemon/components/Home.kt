@@ -38,11 +38,10 @@ fun Home(onNavigateToProfile: () -> Unit) {
 
     val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
     var selectedCategory by remember {
-        mutableStateOf("")
+        mutableStateOf("all")
     }
-
-    val menu by homeViewModel.getMenu().collectAsState(initial = emptyList())
-    val filteredMenu by homeViewModel.getFilteredMenu(selectedCategory).collectAsState(initial = emptyList())
+    val filteredMenu by homeViewModel.getFilteredMenu(selectedCategory, searchPhrase)
+        .collectAsState(initial = emptyList())
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -71,13 +70,10 @@ fun Home(onNavigateToProfile: () -> Unit) {
             Column {
                 MenuCategory {
                     selectedCategory = it.lowercase(Locale.ROOT)
-                    println("selected category: $selectedCategory")
                 }
-                MenuItems(menu = if (selectedCategory == "") menu else filteredMenu)
+                MenuItems(menu = filteredMenu)
             }
-
         }
-
     }
 }
 

@@ -1,6 +1,8 @@
 package com.example.littlelemon.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -20,10 +22,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.ParagraphStyle
@@ -43,10 +49,12 @@ import com.example.littlelemon.ui.theme.primary
 import com.example.littlelemon.ui.theme.primaryVariant
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun Intro(searchPhrase: String, onSearchPhraseChange: (String) -> Unit) {
     val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Card(
         colors = CardDefaults.cardColors(
             containerColor = primary,
@@ -57,7 +65,9 @@ fun Intro(searchPhrase: String, onSearchPhraseChange: (String) -> Unit) {
             .fillMaxWidth()
     ) {
         Box(
-            modifier = Modifier.padding(start = 15.dp, end = 15.dp)
+            modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp)
+                .dismissKeyboardOnTapOutside(keyboardController = keyboardController)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -139,7 +149,7 @@ fun Intro(searchPhrase: String, onSearchPhraseChange: (String) -> Unit) {
                     contentDescription = stringResource(id = R.string.search_icon_desc)
                 )
             },
-            label = { Text(text = stringResource(id = R.string.search_phrase)) },
+            placeholder = { Text(text = stringResource(id = R.string.search_phrase)) },
             value = searchPhrase,
             onValueChange = onSearchPhraseChange,
             colors = TextFieldDefaults.textFieldColors(containerColor = highlight),
@@ -151,6 +161,17 @@ fun Intro(searchPhrase: String, onSearchPhraseChange: (String) -> Unit) {
         )
 
     }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+fun Modifier.dismissKeyboardOnTapOutside(keyboardController: SoftwareKeyboardController?): Modifier {
+    return this.then(
+        Modifier.pointerInput(Unit) {
+            detectTapGestures {
+                keyboardController?.hide()
+            }
+        }
+    )
 }
 
 @Preview(showBackground = true)

@@ -9,6 +9,7 @@ import com.example.littlelemon.repository.MenuItemRepository
  */
 interface AppContainer {
     val menuItemsRepository: MenuItemRepository
+    val resourceProvider: ResourceProvider
 }
 
 /**
@@ -21,4 +22,9 @@ class AppDataContainer(private val context: Context) : AppContainer {
     override val menuItemsRepository: MenuItemRepository by lazy {
         MenuItemRepository(AppDatabase.getDatabase(context).menuItemDao())
     }
+
+    override val resourceProvider: ResourceProvider by lazy {
+        ResourceProvider(context)
+    }
+
 }
