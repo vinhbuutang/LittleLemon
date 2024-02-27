@@ -1,4 +1,4 @@
-package com.example.littlelemon.components
+package com.example.littlelemon.ui.components.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.bumptech.glide.integration.compose.placeholder
-import com.example.littlelemon.database.MenuItemRoom
+import com.example.littlelemon.data.database.MenuItemRoom
 import com.example.littlelemon.ui.theme.KarlaTypography
 import com.example.littlelemon.ui.theme.highlight
 

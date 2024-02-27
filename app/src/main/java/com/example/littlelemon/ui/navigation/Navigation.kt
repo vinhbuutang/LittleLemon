@@ -1,4 +1,4 @@
-package com.example.littlelemon.navigation
+package com.example.littlelemon.ui.navigation
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -6,9 +6,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.littlelemon.components.Home
-import com.example.littlelemon.components.Onboarding
-import com.example.littlelemon.components.Profile
+import com.example.littlelemon.ui.components.home.HomeScreen
+import com.example.littlelemon.ui.components.onboard.OnboardingScreen
+import com.example.littlelemon.ui.components.profile.ProfileScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -26,13 +26,13 @@ fun AppNavigation(navController: NavHostController) {
         startDestination = if (isLoggedIn) Home.route else Onboarding.route
     ) {
         composable(Home.route) {
-            Home(onNavigateToProfile = { navController.navigate(Profile.route) })
+            HomeScreen(onNavigateToProfile = { navController.navigate(Profile.route) })
         }
         composable(Profile.route) {
-            Profile(onNavigateToOnboarding = { navController.navigate(Onboarding.route) })
+            ProfileScreen(onNavigateToOnboarding = { navController.navigate(Onboarding.route) })
         }
         composable(Onboarding.route) {
-            Onboarding(onNavigateToHome = { navController.navigate(Home.route) })
+            OnboardingScreen(onNavigateToHome = { navController.navigate(Home.route) })
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.littlelemon.components
+package com.example.littlelemon.ui.components.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -28,12 +28,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.littlelemon.R
-import com.example.littlelemon.viewmodel.AppViewModelProvider
-import com.example.littlelemon.viewmodel.HomeViewModel
+import com.example.littlelemon.ui.components.onboard.LogoHeader
+import com.example.littlelemon.ui.viewmodel.AppViewModelProvider
+import com.example.littlelemon.ui.viewmodel.HomeViewModel
 import java.util.Locale
 
 @Composable
-fun Home(onNavigateToProfile: () -> Unit) {
+fun HomeScreen(onNavigateToProfile: () -> Unit) {
     var searchPhrase by remember { mutableStateOf("") }
 
     val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
@@ -94,6 +95,6 @@ fun ProfileImage(onNavigateToProfile: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun HomePreview() {
-    Home(onNavigateToProfile = { })
+fun HomeScreenPreview() {
+    HomeScreen(onNavigateToProfile = { })
 }

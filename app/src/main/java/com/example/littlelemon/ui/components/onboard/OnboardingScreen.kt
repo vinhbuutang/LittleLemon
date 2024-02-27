@@ -1,4 +1,4 @@
-package com.example.littlelemon.components
+package com.example.littlelemon.ui.components.onboard
 
 import android.content.Context
 import android.util.Patterns.EMAIL_ADDRESS
@@ -45,7 +45,7 @@ import com.example.littlelemon.ui.theme.primaryVariant
 
 
 @Composable
-fun Onboarding(onNavigateToHome: () -> Unit) {
+fun OnboardingScreen(onNavigateToHome: () -> Unit) {
     val context = LocalContext.current
 
     Surface(modifier = Modifier.fillMaxSize()) {
@@ -257,6 +257,6 @@ fun LittleLemonFormField(
 
 @Preview(showBackground = true)
 @Composable
-fun OnboardingPreview() {
-    Onboarding(onNavigateToHome = { })
+fun OnboardingScreenPreview() {
+    OnboardingScreen(onNavigateToHome = { })
 }

@@ -1,4 +1,4 @@
-package com.example.littlelemon.components
+package com.example.littlelemon.ui.components.profile
 
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
@@ -21,12 +21,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.littlelemon.R
+import com.example.littlelemon.ui.components.onboard.LogoHeader
+import com.example.littlelemon.ui.components.onboard.OnboardingForm
 import com.example.littlelemon.ui.theme.KarlaTypography
 import com.example.littlelemon.ui.theme.highlightVariant
 import com.example.littlelemon.ui.theme.primaryVariant
 
 @Composable
-fun Profile(onNavigateToOnboarding: () -> Unit) {
+fun ProfileScreen(onNavigateToOnboarding: () -> Unit) {
 
     val context = LocalContext.current
     val sharedPreferences = context.getSharedPreferences("LittleLemon", Context.MODE_PRIVATE)
@@ -76,6 +78,6 @@ fun Profile(onNavigateToOnboarding: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun ProfilePreview() {
-    Profile(onNavigateToOnboarding = { })
+fun ProfileScreenPreview() {
+    ProfileScreen(onNavigateToOnboarding = { })
 }

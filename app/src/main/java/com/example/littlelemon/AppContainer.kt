@@ -1,8 +1,8 @@
 package com.example.littlelemon
 
 import android.content.Context
-import com.example.littlelemon.database.AppDatabase
-import com.example.littlelemon.repository.MenuItemRepository
+import com.example.littlelemon.data.database.AppDatabase
+import com.example.littlelemon.data.repository.MenuItemRepository
 
 /**
  * App container for Dependency injection.
@@ -13,7 +13,7 @@ interface AppContainer {
 }
 
 /**
- * [AppContainer] implementation that provides instance of [MenuItemsRepository]
+ * [AppContainer] implementation that provides instance of [MenuItemsRepository] and [ResourceProvider]
  */
 class AppDataContainer(private val context: Context) : AppContainer {
     /**

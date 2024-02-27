@@ -9,11 +9,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
-import androidx.room.Room
-import com.example.littlelemon.database.AppDatabase
-import com.example.littlelemon.navigation.AppNavigation
-import com.example.littlelemon.network.MenuItemNetwork
-import com.example.littlelemon.network.MenuNetwork
+import com.example.littlelemon.data.database.AppDatabase
+import com.example.littlelemon.ui.navigation.AppNavigation
+import com.example.littlelemon.data.network.MenuItemNetwork
+import com.example.littlelemon.data.network.MenuNetwork
 import com.example.littlelemon.ui.theme.LittleLemonTheme
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

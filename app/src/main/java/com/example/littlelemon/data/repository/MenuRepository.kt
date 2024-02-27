@@ -1,7 +1,7 @@
-package com.example.littlelemon.repository
+package com.example.littlelemon.data.repository
 
-import com.example.littlelemon.database.MenuItemDao
-import com.example.littlelemon.database.MenuItemRoom
+import com.example.littlelemon.data.database.MenuItemDao
+import com.example.littlelemon.data.database.MenuItemRoom
 import kotlinx.coroutines.flow.Flow
 
 class MenuItemRepository(private val menuDao: MenuItemDao) {

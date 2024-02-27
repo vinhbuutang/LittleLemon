@@ -1,13 +1,11 @@
-package com.example.littlelemon.viewmodel
+package com.example.littlelemon.ui.viewmodel
 
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import com.example.littlelemon.R
 import com.example.littlelemon.ResourceProvider
-import com.example.littlelemon.database.MenuItemRoom
-import com.example.littlelemon.repository.MenuItemRepository
+import com.example.littlelemon.data.database.MenuItemRoom
+import com.example.littlelemon.data.repository.MenuItemRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 
 class HomeViewModel(

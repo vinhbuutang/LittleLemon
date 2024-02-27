@@ -1,4 +1,4 @@
-package com.example.littlelemon.components
+package com.example.littlelemon.ui.components.home
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +26,6 @@ import com.example.littlelemon.R
 import com.example.littlelemon.ui.theme.KarlaTypography
 import com.example.littlelemon.ui.theme.highlight
 import com.example.littlelemon.ui.theme.highlightVariant
-import com.example.littlelemon.ui.theme.primary
 import com.example.littlelemon.ui.theme.secondary
 
 @Composable
