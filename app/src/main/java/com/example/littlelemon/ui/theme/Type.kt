@@ -7,10 +7,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.littlelemon.R
-import org.w3c.dom.Text
 
 // Set of Material typography styles to start with
 val markaziTextFamily = FontFamily(
@@ -103,6 +101,12 @@ object KarlaTypography {
         fontFamily = karlaFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp
+    )
+
+    val categoryButton = TextStyle(
+        fontFamily = karlaFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp
     )
 
 }

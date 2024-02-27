@@ -22,24 +22,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.littlelemon.R
-import com.example.littlelemon.database.AppDatabase
-import com.example.littlelemon.repository.MenuItemRepository
 import com.example.littlelemon.viewmodel.AppViewModelProvider
 import com.example.littlelemon.viewmodel.HomeViewModel
+import java.util.Locale
 
 @Composable
 fun Home(onNavigateToProfile: () -> Unit) {
     var searchPhrase by remember { mutableStateOf("") }
 
     val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    var selectedCategory by remember {
+        mutableStateOf("")
+    }
+
     val menu by homeViewModel.getMenu().collectAsState(initial = emptyList())
+    val filteredMenu by homeViewModel.getFilteredMenu(selectedCategory).collectAsState(initial = emptyList())
 
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -66,7 +69,11 @@ fun Home(onNavigateToProfile: () -> Unit) {
                 }
             }
             Column {
-                MenuItems(menu = menu)
+                MenuCategory {
+                    selectedCategory = it.lowercase(Locale.ROOT)
+                    println("selected category: $selectedCategory")
+                }
+                MenuItems(menu = if (selectedCategory == "") menu else filteredMenu)
             }
 
         }

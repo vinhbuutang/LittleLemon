@@ -31,6 +31,9 @@ interface MenuItemDao {
 
     @Query("SELECT (SELECT COUNT(*) FROM MenuItemRoom) == 0")
     fun isEmpty(): Boolean
+
+    @Query("SELECT * FROM MenuItemRoom WHERE category == :category")
+    fun getFilteredMenuItems(category: String): Flow<List<MenuItemRoom>>
 }
 
 @Database(entities = [MenuItemRoom::class], version = 2, exportSchema = false)

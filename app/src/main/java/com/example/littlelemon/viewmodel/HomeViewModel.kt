@@ -9,4 +9,8 @@ class HomeViewModel(private val repository: MenuItemRepository) : ViewModel() {
     fun getMenu(): Flow<List<MenuItemRoom>> {
         return repository.getAllMenuItemsStream()
     }
+
+    fun getFilteredMenu(category: String): Flow<List<MenuItemRoom>> {
+        return repository.getFilteredMenuItemsStream(category)
+    }
 }

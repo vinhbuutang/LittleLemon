@@ -15,4 +15,5 @@
     <string name="hero_img_desc">hero image</string>
     <string name="search_icon_desc">search icon</string>
     <string name="search_phrase">Enter search phrase</string>
+    <string name="order">ORDER FOR DELIVERY!</string>
 </resources>

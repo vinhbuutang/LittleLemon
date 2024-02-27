@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class MenuItemRepository(private val menuDao: MenuItemDao) {
     fun getAllMenuItemsStream(): Flow<List<MenuItemRoom>> = menuDao.getAllMenuItems()
+
+    fun getFilteredMenuItemsStream(category: String): Flow<List<MenuItemRoom>> = menuDao.getFilteredMenuItems(category)
 }
